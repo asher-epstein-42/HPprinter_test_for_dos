@@ -29,7 +29,7 @@ while True:
 	
 	
 	
-#README:	
+
 #The porpose of this script is to check if someone is trying to connect to a HP printer over the network,
 #and in case of detection -> perform a dos(denial of service) attack on the hp printer
 # first, we are sniffing using scapy to check if someone is trying to connect to a hp device.
