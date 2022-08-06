@@ -12,7 +12,7 @@ def main():
     # scan the network to create a list of hp printers
     global list_of_hp_printers
     list_of_hp_printers = arp_scan(your_network_ip_range)
-    print(list_of_hp_printers)
+    print(f'list of hp printers ip: {list_of_hp_printers}')
     # wait for arp request to a hp printer
     hp_printer_ip = wait_for_connection_attempt()
 
