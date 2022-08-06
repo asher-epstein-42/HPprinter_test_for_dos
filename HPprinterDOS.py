@@ -26,7 +26,7 @@ def arp_scan(ip_range):
     ans, unans = srp(Ether(dst="ff:ff:ff:ff:ff:ff") / ARP(pdst=str(ip_range)), timeout=2)
 
     for sent, recived in ans:
-        if recived[ARP].hwsrc[0:8] == "9c:7b:ef" and stealth_scan(recived[ARP].psrc, RAW_PRINTING_PORT): # Hewlett Packard(HP) mac address
+        if recived[ARP].hwsrc[0:8] == "9c:7b:ef" and stealth_scan(recived[ARP].psrc, RAW_PRINTING_PORT): # Hewlett Packard(HP) mac address and stealth scan function == true
         	list_of_printers.append(recived[ARP].psrc)
     return list_of_printers
 
