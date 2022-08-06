@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 #this script is for educational purposes only!
-#made by asher_epstein_42
+#made by asher-epstein-42
 from scapy.all import *
 
 RAW_PRINTING_PORT = 9100 #this port is used for raw printing
